@@ -50,7 +50,34 @@
             <button>Remove</button>
         </li>
 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let newToDo = document.getElementById('newToDo');
+        let AddToDo = document.getElementById('AddToDo');
+        let list = document.getElementById('toDoList');
 
+        const addNewItem = (e) => {
+            let listItem = document.createElement('li');
+            listItem.className = 'listItem';
+            listItem.innerHTML = `
+                <span class="TodoText">${newToDo.value}</span>
+                <button>Remove</button>
+            `;
+
+            newToDo.value = '';
+
+            list.appendChild(listItem);
+
+            let removeBtn = listItem.querySelector('button');
+            removeBtn.addEventListener('click', function(e) {
+                listItem.remove();
+            })
+
+        }
+
+        AddToDo.addEventListener('click', addNewItem)
+    });
+</script>
 
 </body>
 </html>

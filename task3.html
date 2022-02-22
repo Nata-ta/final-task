@@ -19,7 +19,22 @@
             Ехать -> Поезд {name} везет { количество пассажиров} со скоростью {speed}
             Стоять -> Поезд {name} остановился. Скорость {speed}
             Подобрать пассажиров -> Увеличивает кол-во пассажиров на Х
-        */    
+        */ 
+       
+        let Train = {};
+            Train.name = "Kyiv - Poltava";
+            Train.speed = "200 km/hour";
+            Train.passengers = 500;
+            Train.go = function() {
+                console.log(`Поезд ${this.name} везет ${this.passengers} со скоростью ${this.speed}`);
+            };
+            Train.stop = function() {
+                console.log(`Поезд ${this.name} остановился. Скорость ${this.name = '0'}`);
+            };
+            Train.takePassengers = function(x) {
+                return this.passengers + x;
+            }
+
     </script>
 </body>
 </html>

@@ -5,8 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <style>
+        .table, th, td {
+            border-collapse: collapse;
+            border: 2px solid #ccc;
+            padding: 20px;
+        }
+        .hide {
+            display: none;
+        }
+        .show {
+            display: block;
+        }
+    </style>
 </head>
 <body>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>userName</th>
+                <th>email</th>
+                <th>Показать webiste</th>
+                <th>phone</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
     <!-- 
         Задание:
 
@@ -23,5 +52,40 @@
 
             Данные о сайте скрывать при выводе и показывать при клике.
      -->
+
+     <script>
+
+         async function getUserList(){
+            let getUsers = await fetch('https://jsonplaceholder.typicode.com/users');
+            const users = await getUsers.json();
+
+            return users;
+         }
+
+         let usersList = getUserList();
+         usersList.then(res => {
+             res.forEach(element => {
+                 let tbody = document.getElementById('tbody');
+                 let tr = document.createElement('tr');
+
+                 tr.innerHTML = `
+                    <td>${element.id}</td>
+                    <td>${element.username}</td>
+                    <td>${element.email}</td>
+                    <td>
+                        <button class="btnToggle">Show/Hide website</button>
+                        <span class="hide">${element.website}</span>
+                    </td>
+                    <td>${element.phone}</td>
+                 `;
+
+                 tr.querySelector('.btnToggle').addEventListener('click', function(e) {
+                     tr.querySelector('.hide').classList.toggle('show');
+                 })
+
+                 tbody.appendChild(tr);
+             });
+         })
+     </script>
 </body>
 </html>

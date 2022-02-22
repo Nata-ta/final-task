@@ -11,6 +11,67 @@
         2. то поле, которое не прошло валидацию подсвечивать красным, которое прошло - подсвечивать зеленым.
         3. Пока не стоит что юзер согласен с лиц. соглашением - кнопка отправки не активна
     */
+
+    document.addEventListener('DOMContentLoaded', function() {
+      let myForm = document.getElementById('MyValidateForm');
+      let agreeCheckbox = document.getElementById('agree');
+      let submitBtn = document.getElementById('submit');
+
+      let checkIfEmpty = (elem) => {
+        return elem.length === 0;
+      }
+
+      let checkPasswords = (first, second) => {
+        return first === second;
+      }
+
+      agreeCheckbox.addEventListener('change', function(e) {
+        if(e.target.checked) {
+          submitBtn.disabled = false;
+        } else {
+          submitBtn.disabled = true;
+        }
+      })
+
+      myForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let valid = true;
+
+        if(checkIfEmpty(myForm.login.value)) {
+          valid = false;
+          myForm.login.className = 'error';
+        } else {
+          myForm.login.className = 'OK';
+        }
+
+        if(checkIfEmpty(myForm.pas1.value)) {
+          valid = false;
+          myForm.pas1.className = 'error';
+        } else {
+          myForm.pas1.className = 'OK';
+        }
+
+        if(checkIfEmpty(myForm.pas2.value)) {
+          valid = false;
+          myForm.pas2.className = 'error';
+        } else {
+          myForm.pas2.className = 'OK';
+        }
+
+        if(!checkPasswords(myForm.pas1.value, myForm.pas2.value)) {
+          valid = false;
+          myForm.pas2.className = 'error';
+        } else {
+          myForm.pas2.className = 'OK';
+        }
+
+        if(valid){
+          alert("Form submited!");
+        }
+      })
+    });
+
   </script>
 </head>
 <body>
